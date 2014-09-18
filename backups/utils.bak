@@ -1,0 +1,54 @@
+def buildTeamlist():
+  import re
+  from pybrain.tools.shortcuts import buildNetwork
+  from team import team
+  fp = open('teams.csv','r')
+  for line in fp:
+    line = line.strip().split(',')
+    t = team(line[0],line[1],line[2],line[3],line[4],line[5])
+    teamlist.append(t)
+  fp.close()
+  return teamlist
+
+  fp = open('teamstats/yppass.csv','r')
+  teamlist=[]
+  idnumber = 1
+  for l1 in fp:
+        l1=l1.strip().split(',')
+        t = team(idnumber,l1[1],1.0/float(l1[0]))
+        teamlist.append(t)
+        idnumber+=1
+  fp.close()
+
+
+  fp = open('teamstats/yprush.csv','r')
+  for l2 in fp:
+    l2 = l2.strip().split(',')
+    teamname = re.compile(l2[1])
+    for team in teamlist:
+      if teamname.match(team.name):
+        team.rypg = 1.0 / float(l2[0])
+  fp.close()
+
+
+  fp = open('teamstats/dpypg.csv','r')
+  for l3 in fp:
+    l3 = l3.strip().split(',')
+    teamname = re.compile(l3[1])
+    for team in teamlist:
+      if teamname.match(team.name):
+        team.dpypg =  1 / float(l3[0])
+  fp.close()
+
+
+  fp = open('teamstats/drypg.csv','r')
+  for l4 in fp:
+    l4 = l4.strip().split(',')
+    teamname = re.compile(l4[1])
+    for team in teamlist:
+      if teamname.match(team.name):
+        print l4[0],l4[1]
+        team.drypg = float(1.0 / float(l4[0]))
+  fp.close()
+  return teamlist
+
