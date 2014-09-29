@@ -5,7 +5,8 @@ from utils import buildTeamlist
 
 teamlist = buildTeamlist()
 nn=buildNetwork(8,5,2)
-nn=NetworkReader.readFrom('savedNetwork.nn')
+nn=NetworkReader.readFrom('recurrentNetwork.xml')
+#nn=NetworkReader.readFrom('savedNetwork.nn')
 
 print "loaded Network, now running matchups..."
 fp =open('data/matchups.csv','r')
