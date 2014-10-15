@@ -23,7 +23,35 @@ def buildTeamlist():
     teamlist.append(t)
   fp.close()
   return teamlist
-
+def updateDataset():
+  teamlist=buildTeamlist()
+  dataset=SupervisedDataSet(8,2)
+  fnameOpen='data/update.csv'
+  fp = open(fnameOpen,'r')
+  for line in fp:
+   line=line.strip().split(',')
+   if len(line)==4:  #training dataset
+    inputData=[]
+    outputData=[float(line[2]),float(line[3])]
+    for team in teamlist:	
+      if team._id == int(line[0]):
+	inputData.append(team.rypg)
+	inputData.append(team.pypg)
+	inputData.append(team.drypg)
+        inputData.append(team.dpypg)
+	print team.name+" vs ",
+	for team in teamlist:	
+	 if team._id == int(line[1]):
+	  inputData.append(team.rypg)
+	  inputData.append(team.pypg)
+	  inputData.append(team.drypg)
+	  inputData.append(team.dpypg)
+	  print team.name
+	  print inputData,outputData
+	  dataset.addSample(inputData,outputData)
+	  print len(inputData),len(outputData) 
+  fp.close()	
+  return dataset
 def buildDataset():
   teamlist=buildTeamlist()
   dataset=SupervisedDataSet(8,2)

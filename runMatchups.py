@@ -1,10 +1,11 @@
 #load trained network and run matchups. 
 from pybrain.tools.shortcuts import buildNetwork
+from pybrain.structure.modules import SoftmaxLayer
 from pybrain.tools.xml.networkreader import NetworkReader
 from utils import buildTeamlist
 
 teamlist = buildTeamlist()
-nn=buildNetwork(8,5,2)
+nn=buildNetwork(8,5,2,outclass=SoftmaxLayer)
 nn=NetworkReader.readFrom('recurrentNetwork.xml')
 #nn=NetworkReader.readFrom('savedNetwork.nn')
 
